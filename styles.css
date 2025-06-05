@@ -1,0 +1,315 @@
+      /* ======= Global Styles ======= */
+    * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+          body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+
+    /* ↓↓↓ hold the purple until 40%, then fade into green by 100% ↓↓↓ */
+    background: linear-gradient(
+      to bottom,
+      #30253E
+    );
+    color: #333;
+    }
+
+    /* ======= Navigation ======= */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: #638872;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      z-index: 200;
+    }
+    nav .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    nav ul {
+      display: flex;
+      gap: 1rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    nav ul li {
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    nav ul li:hover {
+      color: #0066cc;
+    }
+
+    /* ======= Sections ======= */
+    section {
+      padding: 100px 50px;
+    }
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background:transparent;
+      position: relative;
+      overflow: visible;
+    }
+
+    
+    
+    /* ========= “Introduction Rectangle” ========= */
+    .intro-rectangle {
+      display: flex;
+      align-items: flex-start;       /* align items at the top */
+      background: linear-gradient(
+        to bottom,
+        #638872
+      );
+      /*border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+
+      /* ↑↑ increase left/right padding; now 5rem on left, 3rem on right ↑↑ */
+      padding: 1rem 3rem 1rem 5rem;   /* top ⬆ 1rem, right ➡ 3rem, bottom ⬇ 1rem, left ⬅ 5rem */
+
+      max-width: 1000px;
+      width: 95%;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+
+    .intro-rectangle img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-right: 3rem;
+    }
+
+    .intro-text {
+      /* base font-size only applied to paragraphs below */
+      /* remove the 1.5rem here, since we’ll size each <p> separately */
+      text-align: justify;
+    }
+
+    /* ── “Undergraduate student in Biological Sciences” line ── */
+    .intro-text > p:first-of-type {
+      margin: 0.5rem 0 0;
+      font-size: 1.5rem;     /* make this larger */
+      color: #C3C88C;
+      line-height: 1.4;
+    }
+
+    /* ── Descriptive paragraph below (smaller + justified) ── */
+    .intro-text > p:nth-of-type(2) {
+      margin: 1rem 0 0;
+      font-size: 1rem;       /* smaller than the first line */
+      color: #94C784;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    /* Strike-hover logic remains the same */
+    .strike-hov:hover {
+      text-decoration: line-through;
+    }
+    .no-strike {
+      text-decoration: none !important;
+    }
+
+
+    /* ======= Rolling List ======= */
+    .rolling-container {
+      width: 100%;
+      overflow: hidden;
+      margin-top: 2rem;
+      position: relative;
+    }
+    .rolling-list {
+      display: inline-block;
+      white-space: nowrap;
+      animation: scroll-left 15s linear infinite;
+    }
+    .rolling-list:hover {
+      animation-play-state: paused;
+    }
+    .rolling-item {
+      display: inline-block;
+      margin: 0 2rem;
+      font-size: 1.25rem;
+      color: #638872;
+      cursor: pointer;
+    }
+    .rolling-item:hover {
+      color: #C3C88C;
+    }
+    @keyframes scroll-left {
+      0%   { transform: translateX(0);   }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ======= Cursor & Preview Circles ======= */
+    #cursor-circle {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%,-50%);
+      background: rgba(255,255,255,0);
+      backdrop-filter: invert(1);
+      -webkit-backdrop-filter: invert(1);
+      z-index: 1000;
+    }
+    #preview-circle {
+      position: fixed;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: width 0.3s, height 0.3s, opacity 0.3s, transform 0.3s;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
+      pointer-events: none;
+      z-index: 1001;
+      transform: translate(-50%, -50%);
+    }
+
+    /* ======= Buttons ======= */
+    .btn-show-cladogram {
+      margin-top: 2rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      background: #0066cc;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .btn-show-cladogram:hover {
+      background: #005bb5;
+    }
+
+    /* ======= Branch / Cladogram ======= */
+    #branches {
+      display: none;
+    }
+    #branch-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+      overflow: visible;
+    }
+    #branch-svg {
+      width: 700px;
+      height: 400px;
+    }
+    .branch-link {
+      stroke: #333;
+      stroke-width: 2;
+      fill: none;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .branch-circle {
+      fill: #0066cc;
+      opacity: 0;
+      transition: fill 0.3s, opacity 0.3s;
+      cursor: pointer;
+    }
+    .branch-text {
+      fill: #333;
+      font-size: 1rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+    #node-about, #group-about text {
+      opacity: 1 !important;
+    }
+    .child-path, .child-circle, .child-text {
+      opacity: 0;
+    }
+    #branch-container:hover .child-path,
+    #branch-container:hover .child-circle,
+    #branch-container:hover .child-text {
+      opacity: 1;
+    }
+    .node-group:hover .branch-circle {
+      fill: #005bb5;
+    }
+
+    /* ======= Content Section & Cards ======= */
+    #content-section {
+      min-height: 300px;
+      background: #fff;
+      margin: 50px 0;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 50px;
+    }
+    .project-card {
+      background: #fff;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+    }
+    .project-info {
+      position: absolute;
+      bottom: -100%;
+      left: 0;
+      width: 100%;
+      background: rgba(0,102,204,0.9);
+      color: #fff;
+      padding: 1rem;
+      transition: bottom 0.3s;
+    }
+    .project-card:hover .project-info {
+      bottom: 0;
+    }
+
+    /* ======= Skills ======= */
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .skill {
+      background: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* ======= Footer ======= */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #e6f7ff;
+    }
