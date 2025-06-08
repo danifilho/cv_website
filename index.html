@@ -225,7 +225,7 @@
     <section id="hero">
       <span class="badge">2025</span>
       <h1>PORTFOLIO</h1>
-      <p id="hero-subtitle">Bioinformatician and Undergraduate Student</p>
+      <p id="hero-subtitle">Bioinformatician</p>
     </section>
 
     <!-- ░░  SUMMARY GRID  ░░ -->
@@ -294,6 +294,24 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
+
+    // Cycle subtitle text in sync with the font animation
+    const phrases = [
+      'Bioinformatician',
+      'Undergraduate Student',
+      'Lifelong Learner',
+      'Data Enthusiast',
+      'Open Source Fan'
+    ];
+
+    const subtitle = document.getElementById('hero-subtitle');
+    let idx = 0;
+    subtitle.textContent = phrases[idx];
+
+    setInterval(() => {
+      idx = (idx + 1) % phrases.length;
+      subtitle.textContent = phrases[idx];
+    }, 2000); // matches the 10s font animation divided by 5 steps
   </script>
 </body>
 </html>
