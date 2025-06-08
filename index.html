@@ -3,244 +3,261 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Daniel Filho – Biological Sciences Undergraduate</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Cursor & Preview Circles -->
-  <div id="cursor-circle"></div>
-  <div id="preview-circle"></div>
+  <title>Daniel Filho – Portfolio 2024</title>
 
-  <!-- ======= Navigation ======= -->
-  <nav>
-    <div class="logo">Curriculum</div>
-    <ul>
-      <li onclick="document.getElementById('about').scrollIntoView()">About</li>
-      <li onclick="document.getElementById('branches').scrollIntoView()">Navigation</li>
-      <li onclick="showSection('research')">Research</li>
-      <li onclick="showSection('education')">Education</li>
-      <li onclick="showSection('contact')">Contact</li>
-      <li onclick="document.getElementById('projects').scrollIntoView()">Projects</li>
-      <li onclick="document.getElementById('skills').scrollIntoView()">Skills</li>
-    </ul>
-  </nav>
+  <!--  =====  Google Fonts : "Anton" (display) + "Urbanist" (body)  =====  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Urbanist:wght@400;600&display=swap" rel="stylesheet">
 
-<!-- ======= Hero Section ======= -->
-<section class="hero" id="home">
-  <!-- ===== Introduction Rectangle ===== -->
-  <div class="intro-rectangle">
-    <!-- Replace “images/profile.jpg” with your actual photo file -->
-    <img src="images/profile.jpg" alt="Daniel Filho" />
-    <div class="intro-text">
-      <h1>Daniel Filho</h1>
-      <p>
-        <span id="degree-status" class="strike-hov">
-          Undergraduate student
-        </span>
-        in Biological Sciences
-      </p>
-      <p style="margin-top: 1rem; line-height: 1.4;">
-        Hi, I am a Brazilian student living in Bariri – São Paulo. Undergraduate 
-        student in Biological Sciences at the Faculty of Sciences (FC) – Bauru 
-        Campus at the São Paulo State University Júlio de Mesquita Filho (Unesp). 
-        Research assistant at Patterson’s Plant Lab at Michigan State University, 
-        working with downstream of machine learning models to identify 
-        cis-regulatory regions in plant genomes. (Source: CV Lattes)
-      </p>
-    </div>
-  </div>
+  <style>
+    :root {
+      /* —— Colour Palette —— */
+      --bg: #111111;               /* page background */
+      --card: #1c1c1c;             /* inner blocks */
+      --border: rgba(255,255,255,.08);
+      --accent: #ff5c1d;           /* retro-orange accent */
+      --text: #e5e5e5;             /* body text */
+      --heading: #d3d3d3;          /* large headings */
+    }
 
-  <!-- ===== Rolling List ===== -->
-  <div class="rolling-container">
-    <div class="rolling-list">
-      <span class="rolling-item" data-image="images/IWGC.png">Genome Annotation</span>
-      <span class="rolling-item" data-image="images/transcriptomics.png">Transcriptomics</span>
-      <span class="rolling-item" data-image="images/evo2_embeddings.png">Evo2 Embeddings</span>
-      <span class="rolling-item" data-image="images/hpc_slurm.png">HPC & SLURM</span>
-      <span class="rolling-item" data-image="images/python_scripting.png">Python Scripting</span>
-      <!-- Duplicate for seamless scroll -->
-      <span class="rolling-item" data-image="images/IWGC.png">Genome Annotation</span>
-      <span class="rolling-item" data-image="images/transcriptomics.png">Transcriptomics</span>
-      <span class="rolling-item" data-image="images/evo2_embeddings.png">Evo2 Embeddings</span>
-      <span class="rolling-item" data-image="images/hpc_slurm.png">HPC & SLURM</span>
-      <span class="rolling-item" data-image="images/python_scripting.png">Python Scripting</span>
-    </div>
-    <button class="btn-show-cladogram" onclick="showCladogram()">
-      Go to Cladogram
-    </button>
-  </div>
-</section>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <!-- ======= About Section ======= -->
-  <section id="about">
-    <h2>About Me</h2>
-    <p>
-      Hello! I’m Daniel Filho, a final-year Biological Sciences undergraduate passionate
-      about bioinformatics, computational biology, and research. I’m currently working on
-      projects involving genome annotation, transcriptomics, and machine-learning applications in biology.
-    </p>
-  </section>
+    body {
+      font-family: 'Urbanist', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      position: relative;
+      min-height: 100vh;
+    }
 
-  <!-- ======= Branch / Cladogram Section ======= -->
-  <section id="branches">
-    <h2>Main Navigation</h2>
-    <div id="branch-container">
-      <svg id="branch-svg" viewBox="0 0 700 400">
-        <g class="node-group" id="group-about">
-          <circle class="branch-circle" id="node-about" cx="100" cy="200" r="30" />
-          <text class="branch-text" x="140" y="205">About Me</text>
-        </g>
-        <path class="branch-link child-path" d="M130,200 L300,200" />
-        <path class="branch-link child-path" d="M300,200 L300,100" />
-        <path class="branch-link child-path" d="M300,200 L300,300" />
-        <path class="branch-link child-path" d="M300,200 L450,200" />
-        <g class="node-group child-group" onclick="showSection('research')">
-          <circle class="branch-circle child-circle" cx="450" cy="100" r="20" />
-          <text class="branch-text child-text" x="480" y="105">Research Interests</text>
-        </g>
-        <g class="node-group child-group" onclick="showSection('education')">
-          <circle class="branch-circle child-circle" cx="450" cy="200" r="20" />
-          <text class="branch-text child-text" x="480" y="205">Education</text>
-        </g>
-        <g class="node-group child-group" onclick="showSection('contact')">
-          <circle class="branch-circle child-circle" cx="450" cy="300" r="20" />
-          <text class="branch-text child-text" x="480" y="305">Contact</text>
-        </g>
-      </svg>
-    </div>
-  </section>
+    /*  Subtle noise overlay for that old-school grainy vibe  */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      /*  *Feel free to swap this data-URI for your own noise texture*  */
+      background-image: url('data:image/svg+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4/5+hHgAHggJ/qTJSwwAAAABJRU5ErkJggg==');
+      opacity: .15;
+      pointer-events: none;
+    }
 
-  <!-- ======= Dynamic Content Section ======= -->
-  <section id="content-section">
-    <h2>Welcome!</h2>
-    <p>Click on a branch above to see more.</p>
-  </section>
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
 
-  <!-- ======= Projects Section ======= -->
-  <section id="projects">
-    <h2>Projects</h2>
-    <div class="projects-grid">
-      <div class="project-card">
-        <h3>Genome Annotation Pipeline</h3>
-        <div class="project-info">
-          <p>
-            Developed a Snakemake pipeline integrating MAKER and RepeatMasker to annotate plant genomes.
-          </p>
-        </div>
-      </div>
-      <div class="project-card">
-        <h3>Real-time Transcription Tool</h3>
-        <div class="project-info">
-          <p>
-            Implemented a Python application using Whisper and Vosk to transcribe live lectures with diarization.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+    /*  ░░░  HERO  ░░░  */
+    #hero {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 4rem 2rem;
+      margin-bottom: 3rem;
+      position: relative;
+      overflow: hidden;
+    }
 
-  <!-- ======= Skills Section ======= -->
-  <section id="skills">
-    <h2>Skills & Competences</h2>
-    <div class="skills-list">
-      <span class="skill">Python</span>
-      <span class="skill">Snakemake</span>
-      <span class="skill">SLURM</span>
-      <span class="skill">Docker</span>
-      <span class="skill">Bioinformatics</span>
-      <span class="skill">Machine Learning</span>
-    </div>
-  </section>
+    #hero h1 {
+      font-family: 'Anton', sans-serif;
+      font-size: clamp(3rem, 10vw, 8rem);
+      letter-spacing: 0.02em;
+      color: var(--heading);
+    }
 
-  <!-- ======= Footer ======= -->
-  <footer>
-    <p>&copy; 2025 Daniel Filho. All rights reserved.</p>
-  </footer>
+    #hero p {
+      margin-top: .5rem;
+      opacity: .75;
+    }
 
-  <!-- ======= JavaScript ======= -->
-  <script>
-    // Cursor circle follows mouse
-    document.addEventListener('mousemove', e => {
-      const cursor = document.getElementById('cursor-circle');
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
+    .badge {
+      background: var(--accent);
+      color: #fff;
+      padding: .25rem 1rem;
+      border-radius: 9999px;
+      font-size: .8rem;
+      position: absolute;
+      top: 1.5rem;
+      right: 2rem;
+    }
 
-    // Rolling-list preview circle
-    document.addEventListener('DOMContentLoaded', () => {
-      const preview = document.getElementById('preview-circle');
-      document.querySelectorAll('.rolling-item').forEach(item => {
-        item.addEventListener('mouseenter', e => {
-          const img = item.getAttribute('data-image');
-          if (!img) return;
-          preview.style.backgroundImage = `url('${img}')`;
-          preview.style.left = e.clientX + 'px';
-          preview.style.top = e.clientY + 'px';
-          preview.style.width = '450px';
-          preview.style.height = '450px';
-          preview.style.opacity = '1';
-          preview.style.transform = 'translate(-50%, -50%)';
-        });
-        item.addEventListener('mousemove', e => {
-          preview.style.left = e.clientX + 'px';
-          preview.style.top = e.clientY + 'px';
-        });
-        item.addEventListener('mouseleave', () => {
-          preview.style.width = preview.style.height = '0';
-          preview.style.opacity = '0';
-        });
-      });
-    });
+    /*  ░░░  SUMMARY GRID  ░░░  */
+    #summary {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
 
-    // Dynamic content switching
-    function showSection(id) {
-      const c = document.getElementById('content-section');
-      if (id === 'research') {
-        c.innerHTML = `
-          <h2>Research Interests</h2>
-          <p>Genome annotation, transcriptomics, evolutionary biology, and ML for cis-regulatory prediction.</p>
-        `;
-      } else if (id === 'education') {
-        c.innerHTML = `
-          <h2>Education</h2>
-          <p>BSc Biological Sciences (expected 2025) – courses in molecular biology, genetics, and bioinformatics.</p>
-        `;
-      } else if (id === 'contact') {
-        c.innerHTML = `
-          <h2>Contact</h2>
-          <p>Email: <a href="mailto:your.email@example.com">your.email@example.com</a>
-          &nbsp;|&nbsp;
-          <a href="https://www.linkedin.com/in/yourprofile" target="_blank">LinkedIn</a></p>
-        `;
+    .photo-block {
+      background: var(--card);
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      aspect-ratio: 3/4;           /*  Keeps placeholder nicely proportional  */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--border);
+      font-size: .9rem;
+      text-align: center;
+      padding: .5rem;
+    }
+
+    #summary h2 {
+      font-family: 'Anton', sans-serif;
+      font-size: 4rem;
+      color: var(--heading);
+      margin-bottom: 1rem;
+      position: relative;
+    }
+
+    #summary h2 span {
+      color: var(--accent);
+    }
+
+    #summary p {
+      max-width: 50ch;
+      margin-bottom: 1rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .contact-links a {
+      text-decoration: none;
+      background: var(--accent);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: 9999px;
+      font-size: .9rem;
+    }
+
+    /*  ░░░  CARDS  ░░░  */
+    .cards {
+      display: grid;
+      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.5rem;
+    }
+
+    .card h3 {
+      font-family: 'Anton', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--heading);
+    }
+
+    ul { list-style: none; }
+    ul li { margin-bottom: .5rem; }
+
+    .skill-pill {
+      background: var(--border);
+      padding: .25rem .75rem;
+      border-radius: 9999px;
+      font-size: .85rem;
+      display: inline-block;
+      margin: .25rem;
+    }
+
+    /*  Light-mode tweak  */
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f0f0f0;
+        --card: #ffffff;
+        --border: rgba(0,0,0,.1);
+        --text: #222222;
+        --heading: #111111;
       }
     }
+  </style>
+</head>
+<body>
+  <div class="container">
 
-    // Reveal cladogram
-    function showCladogram() {
-      const b = document.getElementById('branches');
-      b.style.display = 'block';
-      b.scrollIntoView({ behavior: 'smooth' });
-    }
+    <!-- ░░  HERO SECTION  ░░ -->
+    <section id="hero">
+      <span class="badge">2024</span>
+      <h1>PORTFOLIO</h1>
+      <p>Updated — Bioinformatics & Data Science</p>
+    </section>
 
-    // “Undergraduate ↔ Soon a master student” hover behavior
-    const degreeSpan = document.getElementById('degree-status');
-    let hoverTimer = null;
-    const delay = 400; // ms before swapping text
+    <!-- ░░  SUMMARY GRID  ░░ -->
+    <section id="summary">
+      <div class="photo-block">PHOTO PLACEHOLDER</div>
 
-    degreeSpan.addEventListener('mouseenter', () => {
-      degreeSpan.textContent = 'Undergraduate student';
-      degreeSpan.classList.remove('no-strike');
+      <div>
+        <h2>HELLO<span>!</span></h2>
+        <p>My name is <strong>Daniel Filho</strong>. I am a Bioinformatics enthusiast based in Brazil. I love data, genomes & clean code. Over the last few years I've worked on projects ranging from genome annotation to machine-learning driven cis-regulatory element discovery.</p>
 
-      hoverTimer = setTimeout(() => {
-        degreeSpan.textContent = 'Soon a master student';
-        degreeSpan.classList.add('no-strike');
-      }, delay);
-    });
-    degreeSpan.addEventListener('mouseleave', () => {
-      clearTimeout(hoverTimer);
-      degreeSpan.textContent = 'Undergraduate student';
-      degreeSpan.classList.remove('no-strike');
-    });
-  </script>
+        <div class="contact-links">
+          <a href="mailto:your.email@example.com">your.email@example.com</a>
+          <a href="#">github.com/yourhandle</a>
+          <a href="#">@yourhandle</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ░░  INFO CARDS  ░░ -->
+    <div class="cards">
+      <!--  EDUCATION  -->
+      <div class="card">
+        <h3>Education</h3>
+        <p><strong>2020 – 2024</strong><br>Federal University — B.Sc. Biological Sciences</p>
+      </div>
+
+      <!--  EXPERIENCE  -->
+      <div class="card">
+        <h3>Experience</h3>
+        <ul>
+          <li><strong>2019 – present</strong>  Freelance Bioinformatician</li>
+          <li><strong>2023</strong>  Research Assistant — Michigan State University</li>
+        </ul>
+      </div>
+
+      <!--  SOFTWARE SKILLS  -->
+      <div class="card">
+        <h3>Software Skills</h3>
+        <ul>
+          <li>Python & Bash</li>
+          <li>Docker / Singularity</li>
+          <li>Snakemake & HPC</li>
+        </ul>
+      </div>
+
+      <!--  SOFT SKILLS  -->
+      <div class="card">
+        <h3>Skills</h3>
+        <span class="skill-pill">Attention to detail</span>
+        <span class="skill-pill">Creative</span>
+        <span class="skill-pill">Time management</span>
+      </div>
+
+      <!--  LANGUAGES  -->
+      <div class="card">
+        <h3>Languages</h3>
+        <p>Portuguese (native)<br>English (advanced)</p>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>
