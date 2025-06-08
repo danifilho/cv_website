@@ -68,24 +68,16 @@
       font-size: clamp(3rem, 10vw, 8rem);
       letter-spacing: 0.02em;
       color: var(--heading);
+      margin: 0; /* reduce space above/below title */
     }
 
     #hero p {
-      margin-top: .5rem;
+      margin-top: 0.25rem; /* keep subtitle close to title */
       opacity: .75;
     }
 
     #hero-subtitle {
       font-size: 1.75rem;
-      animation: fontCycle 10s infinite;
-    }
-
-    @keyframes fontCycle {
-      0%,20% { font-family: 'Roboto', sans-serif; }
-      20%,40% { font-family: 'Montserrat', sans-serif; }
-      40%,60% { font-family: 'Courier Prime', monospace; }
-      60%,80% { font-family: 'Lobster', cursive; }
-      80%,100% { font-family: 'Indie Flower', cursive; }
     }
 
     .badge {
@@ -225,7 +217,7 @@
     <section id="hero">
       <span class="badge">2025</span>
       <h1>PORTFOLIO</h1>
-      <p id="hero-subtitle">Bioinformatician and Undergraduate Student</p>
+      <p id="hero-subtitle">Bioinformatician</p>
     </section>
 
     <!-- ░░  SUMMARY GRID  ░░ -->
@@ -294,6 +286,33 @@
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
     });
+
+    // Cycle subtitle font and text together
+    const fonts = [
+      "'Roboto', sans-serif",
+      "'Montserrat', sans-serif",
+      "'Courier Prime', monospace",
+      "'Lobster', cursive",
+      "'Indie Flower', cursive"
+    ];
+    const phrases = [
+      'Bioinformatician',
+      'Undergraduate Student',
+      'Lifelong Learner',
+      'Data Enthusiast',
+      'Open Source Fan'
+    ];
+
+    const subtitle = document.getElementById('hero-subtitle');
+    let idx = 0;
+    subtitle.style.fontFamily = fonts[idx];
+    subtitle.textContent = phrases[idx];
+
+    setInterval(() => {
+      idx = (idx + 1) % phrases.length;
+      subtitle.style.fontFamily = fonts[idx];
+      subtitle.textContent = phrases[idx];
+    }, 2000); // one change per font switch
   </script>
 </body>
 </html>
