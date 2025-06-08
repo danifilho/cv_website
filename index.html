@@ -78,7 +78,6 @@
 
       #hero-subtitle {
         font-size: 1.75rem;
-        animation: fontCycle 10s infinite;
       }
 
     .badge {
@@ -196,6 +195,11 @@
       backdrop-filter: invert(1);
       -webkit-backdrop-filter: invert(1);
       z-index: 1000;
+      transition: transform 0.2s ease;
+    }
+
+    #cursor-circle.grow {
+      transform: translate(-50%, -50%) scale(1.5);
     }
 
     /*  Light-mode tweak  */
@@ -282,14 +286,19 @@
   </div>
 
   <script>
-    document.addEventListener('mousemove', e => {
+    document.addEventListener('DOMContentLoaded', () => {
       const cursor = document.getElementById('cursor-circle');
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
+      document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+      document.querySelectorAll('a, .card, #hero h1, #hero-subtitle').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+      });
 
-     // Cycle subtitle font and text together
-  const subtitleStyles = [
+      // Cycle subtitle font and text together
+      const subtitleStyles = [
     {
       font: "'Roboto', sans-serif",
       weight: '700',
@@ -330,25 +339,26 @@
       stroke: '1px var(--accent)',
       text: 'Technology and Life Sciences'
     }
-  ];
+      ];
 
     const subtitle = document.getElementById('hero-subtitle');
     let idx = 0;
-  const applyStyle = (conf) => {
-    subtitle.style.fontFamily = conf.font;
-    subtitle.style.fontWeight = conf.weight;
-    subtitle.style.fontStyle = conf.style;
-    subtitle.style.color = conf.color;
-    subtitle.style.webkitTextStroke = conf.stroke;
-    subtitle.textContent = conf.text;
-  };
+      const applyStyle = (conf) => {
+        subtitle.style.fontFamily = conf.font;
+        subtitle.style.fontWeight = conf.weight;
+        subtitle.style.fontStyle = conf.style;
+        subtitle.style.color = conf.color;
+        subtitle.style.webkitTextStroke = conf.stroke;
+        subtitle.textContent = conf.text;
+      };
 
-  applyStyle(subtitleStyles[idx]);
+      applyStyle(subtitleStyles[idx]);
 
-    setInterval(() => {
-    idx = (idx + 1) % subtitleStyles.length;
-    applyStyle(subtitleStyles[idx]);
-  }, 2000); // one change per font switch
+      setInterval(() => {
+        idx = (idx + 1) % subtitleStyles.length;
+        applyStyle(subtitleStyles[idx]);
+      }, 2000); // one change per font switch
+    });
   </script>
 </body>
 </html>
