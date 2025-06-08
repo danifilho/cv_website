@@ -8,7 +8,7 @@
   <!--  =====  Google Fonts : "Anton" (display) + "Urbanist" (body)  =====  -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Urbanist:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Urbanist:wght@400;600&family=Roboto&family=Montserrat&family=Courier+Prime&family=Lobster&family=Indie+Flower&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -73,6 +73,19 @@
     #hero p {
       margin-top: .5rem;
       opacity: .75;
+    }
+
+    #hero-subtitle {
+      font-size: 1.75rem;
+      animation: fontCycle 10s infinite;
+    }
+
+    @keyframes fontCycle {
+      0%,20% { font-family: 'Roboto', sans-serif; }
+      20%,40% { font-family: 'Montserrat', sans-serif; }
+      40%,60% { font-family: 'Courier Prime', monospace; }
+      60%,80% { font-family: 'Lobster', cursive; }
+      80%,100% { font-family: 'Indie Flower', cursive; }
     }
 
     .badge {
@@ -212,7 +225,7 @@
     <section id="hero">
       <span class="badge">2025</span>
       <h1>PORTFOLIO</h1>
-      <p>Bioinformatician and Undergraduate Student</p>
+      <p id="hero-subtitle">Bioinformatician and Undergraduate Student</p>
     </section>
 
     <!-- ░░  SUMMARY GRID  ░░ -->
