@@ -288,30 +288,23 @@
     });
 
     // Cycle subtitle font and text together
-    const fonts = [
-      "'Roboto', sans-serif",
-      "'Montserrat', sans-serif",
-      "'Courier Prime', monospace",
-      "'Lobster', cursive",
-      "'Indie Flower', cursive"
-    ];
-    const phrases = [
-      'Bioinformatician',
-      'Undergraduate Student',
-      'Lifelong Learner',
-      'Data Enthusiast',
-      'Open Source Fan'
+    const subtitleStyles = [
+      { font: "'Roboto', sans-serif", text: 'Bioinformatician' },
+      { font: "'Montserrat', sans-serif", text: 'Undergraduate Student' },
+      { font: "'Courier Prime', monospace", text: 'Lifelong Learner' },
+      { font: "'Lobster', cursive", text: 'Data Enthusiast' },
+      { font: "'Indie Flower', cursive", text: 'Open Source Fan' }
     ];
 
     const subtitle = document.getElementById('hero-subtitle');
     let idx = 0;
-    subtitle.style.fontFamily = fonts[idx];
-    subtitle.textContent = phrases[idx];
+    subtitle.style.fontFamily = subtitleStyles[idx].font;
+    subtitle.textContent = subtitleStyles[idx].text;
 
     setInterval(() => {
-      idx = (idx + 1) % phrases.length;
-      subtitle.style.fontFamily = fonts[idx];
-      subtitle.textContent = phrases[idx];
+      idx = (idx + 1) % subtitleStyles.length;
+      subtitle.style.fontFamily = subtitleStyles[idx].font;
+      subtitle.textContent = subtitleStyles[idx].text;
     }, 2000); // one change per font switch
   </script>
 </body>
