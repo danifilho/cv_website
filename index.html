@@ -68,12 +68,12 @@
     .sine-track {
       position: absolute;
       width: clamp(170px, 20vw, 300px);
-      height: 260vh;
-      top: -80vh;
+      height: 100%;
+      top: 0;
       opacity: .98;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 1100'%3E%3Cpath d='M130 0 C30 70 230 140 130 210 C30 280 230 350 130 420 C30 490 230 560 130 630 C30 700 230 770 130 840 C30 910 230 980 130 1050' stroke='%23C70039' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 640'%3E%3Cpath d='M130 0 C50 40 50 120 130 160 C210 200 210 280 130 320 C50 360 50 440 130 480 C210 520 210 600 130 640' stroke='%23C70039' stroke-width='5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: repeat-y;
-      background-size: 100% 480px;
+      background-size: 100% 320px;
       filter: drop-shadow(0 0 10px rgba(199, 0, 57, .5));
       will-change: transform;
     }
@@ -99,6 +99,14 @@
     .orbit-two { width: 122px; height: 122px; }
     .orbit-three { width: 104px; height: 104px; }
     .orbit-four { width: 86px; height: 86px; }
+
+    .orbit-five { width: 74px; height: 74px; }
+    .orbit-six { width: 66px; height: 66px; }
+    .orbit-seven { width: 58px; height: 58px; }
+    .orbit-eight { width: 50px; height: 50px; }
+    .orbit-nine { width: 42px; height: 42px; }
+    .orbit-ten { width: 36px; height: 36px; }
+
     @media (prefers-reduced-motion: reduce) {
       .sine-track, .orbit-circle {
         transform: none !important;
@@ -270,6 +278,12 @@
     <div class="orbit-circle orbit-two"></div>
     <div class="orbit-circle orbit-three"></div>
     <div class="orbit-circle orbit-four"></div>
+    <div class="orbit-circle orbit-five"></div>
+    <div class="orbit-circle orbit-six"></div>
+    <div class="orbit-circle orbit-seven"></div>
+    <div class="orbit-circle orbit-eight"></div>
+    <div class="orbit-circle orbit-nine"></div>
+    <div class="orbit-circle orbit-ten"></div>
   </div>
   <div id="cursor-circle"></div>
   <div class="container">
@@ -412,7 +426,13 @@
       document.querySelector('.orbit-one'),
       document.querySelector('.orbit-two'),
       document.querySelector('.orbit-three'),
-      document.querySelector('.orbit-four')
+      document.querySelector('.orbit-four'),
+      document.querySelector('.orbit-five'),
+      document.querySelector('.orbit-six'),
+      document.querySelector('.orbit-seven'),
+      document.querySelector('.orbit-eight'),
+      document.querySelector('.orbit-nine'),
+      document.querySelector('.orbit-ten')
     ]
   };
 
@@ -420,18 +440,24 @@
 
   const animateMathDecor = () => {
     const y = window.scrollY;
-    const amplitude = 90;
-    const wavelength = 260;
+    const amplitude = 80;
+    const period = amplitude * 2;
     const verticalDrift = y * 0.38;
 
     artLayer.leftSine.style.transform = `translate3d(0, ${-verticalDrift}px, 0)`;
     artLayer.rightSine.style.transform = `translate3d(0, ${-verticalDrift}px, 0) scaleX(-1)`;
 
     const anchors = [
-      { side: 'left', baseY: 16, r: 75 },
-      { side: 'left', baseY: 38, r: 61 },
-      { side: 'right', baseY: 24, r: 52 },
-      { side: 'right', baseY: 52, r: 43 }
+      { side: 'left', baseY: 8, r: 75 },
+      { side: 'left', baseY: 18, r: 61 },
+      { side: 'left', baseY: 30, r: 52 },
+      { side: 'left', baseY: 44, r: 43 },
+      { side: 'left', baseY: 60, r: 37 },
+      { side: 'right', baseY: 12, r: 33 },
+      { side: 'right', baseY: 26, r: 29 },
+      { side: 'right', baseY: 40, r: 25 },
+      { side: 'right', baseY: 56, r: 21 },
+      { side: 'right', baseY: 72, r: 18 }
     ];
 
     anchors.forEach((anchor, i) => {
@@ -439,12 +465,12 @@
       if (!circle) return;
 
       const localY = (y * 0.55) + anchor.baseY * 10;
-      const waveOffset = Math.sin(localY / wavelength) * amplitude;
+      const waveOffset = Math.sin((2 * Math.PI * localY) / period) * amplitude;
       const sideSign = anchor.side === 'left' ? 1 : -1;
       const railX = anchor.side === 'left' ? 42 : window.innerWidth - 42;
       const tangentX = railX + (sideSign * waveOffset);
       const centerX = tangentX + (sideSign * anchor.r);
-      const centerY = anchor.baseY + (localY * 0.18);
+      const centerY = anchor.baseY + (localY * 0.22);
 
       circle.style.transform = `translate3d(${centerX - anchor.r}px, ${centerY - anchor.r}px, 0)`;
     });
