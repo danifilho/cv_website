@@ -47,10 +47,64 @@
       pointer-events: none;
     }
 
+
+    .math-scroll-art {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
     .container {
+      position: relative;
+      z-index: 1;
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
+    }
+
+    .sine-track {
+      position: absolute;
+      width: 170px;
+      height: 200vh;
+      top: -50vh;
+      opacity: .5;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 800'%3E%3Cpath d='M70 0 C20 80 120 160 70 240 C20 320 120 400 70 480 C20 560 120 640 70 720 C20 760 90 800 70 800' stroke='%23C70039' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: repeat-y;
+      background-size: 100% 520px;
+      will-change: transform;
+    }
+
+    .sine-left { left: 0; }
+
+    .sine-right {
+      right: 0;
+      transform: scaleX(-1);
+      opacity: .35;
+    }
+
+    .orbit-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid rgba(199, 0, 57, .5);
+      mix-blend-mode: screen;
+      will-change: transform;
+    }
+
+    .orbit-one {
+      width: 180px;
+      height: 180px;
+      left: 4vw;
+      top: 12vh;
+    }
+
+    .orbit-two {
+      width: 130px;
+      height: 130px;
+      right: 5vw;
+      top: 60vh;
+      border-color: rgba(211, 211, 211, .45);
     }
 
     /*  ░░░  HERO  ░░░  */
@@ -211,6 +265,12 @@
   </style>
 </head>
 <body>
+  <div class="math-scroll-art" aria-hidden="true">
+    <div class="sine-track sine-left"></div>
+    <div class="sine-track sine-right"></div>
+    <div class="orbit-circle orbit-one"></div>
+    <div class="orbit-circle orbit-two"></div>
+  </div>
   <div id="cursor-circle"></div>
   <div class="container">
 
@@ -344,6 +404,42 @@
   };
 
   applyStyle(subtitleStyles[idx]);
+
+  const artLayer = {
+    leftSine: document.querySelector('.sine-left'),
+    rightSine: document.querySelector('.sine-right'),
+    orbitOne: document.querySelector('.orbit-one'),
+    orbitTwo: document.querySelector('.orbit-two')
+  };
+
+  let scheduled = false;
+
+  const animateMathDecor = () => {
+    const y = window.scrollY;
+    const waveA = Math.sin(y * 0.01) * 22;
+    const waveB = Math.cos(y * 0.008) * 28;
+
+    artLayer.leftSine.style.transform = `translate3d(${waveA}px, ${-y * 0.22}px, 0)`;
+    artLayer.rightSine.style.transform = `translate3d(${waveB}px, ${-y * 0.28}px, 0) scaleX(-1)`;
+
+    const scaleOne = 1 + (Math.sin(y * 0.012) + 1) * 0.18;
+    const scaleTwo = 1 + (Math.cos(y * 0.011) + 1) * 0.2;
+
+    artLayer.orbitOne.style.transform = `translate3d(${Math.sin(y * 0.009) * 30}px, ${y * 0.12}px, 0) scale(${scaleOne})`;
+    artLayer.orbitTwo.style.transform = `translate3d(${Math.cos(y * 0.007) * -26}px, ${-y * 0.1}px, 0) scale(${scaleTwo})`;
+
+    scheduled = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!scheduled) {
+      requestAnimationFrame(animateMathDecor);
+      scheduled = true;
+    }
+  }, { passive: true });
+
+  animateMathDecor();
+
 
     setInterval(() => {
     idx = (idx + 1) % subtitleStyles.length;
