@@ -43,8 +43,18 @@
       inset: 0;
       /*  *Feel free to swap this data-URI for your own noise texture*  */
       background-image: url('data:image/svg+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4/5+hHgAHggJ/qTJSwwAAAABJRU5ErkJggg==');
-      opacity: .15;
+      opacity: .12;
       pointer-events: none;
+      z-index: 3;
+    }
+
+
+    .math-scroll-art {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
     }
 
 
@@ -66,13 +76,14 @@
 
     .sine-track {
       position: absolute;
-      width: 170px;
+      width: 220px;
       height: 200vh;
       top: -50vh;
-      opacity: .5;
+      opacity: .9;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 140 800'%3E%3Cpath d='M70 0 C20 80 120 160 70 240 C20 320 120 400 70 480 C20 560 120 640 70 720 C20 760 90 800 70 800' stroke='%23C70039' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
       background-repeat: repeat-y;
-      background-size: 100% 520px;
+      background-size: 100% 420px;
+      filter: drop-shadow(0 0 8px rgba(199, 0, 57, .45));
       will-change: transform;
     }
 
@@ -81,14 +92,14 @@
     .sine-right {
       right: 0;
       transform: scaleX(-1);
-      opacity: .35;
+      opacity: .75;
     }
 
     .orbit-circle {
       position: absolute;
       border-radius: 50%;
-      border: 2px solid rgba(199, 0, 57, .5);
-      mix-blend-mode: screen;
+      border: 3px solid rgba(199, 0, 57, .75);
+      box-shadow: 0 0 0 8px rgba(199, 0, 57, .1), 0 0 24px rgba(199, 0, 57, .35);
       will-change: transform;
     }
 
@@ -104,7 +115,15 @@
       height: 130px;
       right: 5vw;
       top: 60vh;
-      border-color: rgba(211, 211, 211, .45);
+      border-color: rgba(211, 211, 211, .8);
+    }
+
+
+
+    @media (prefers-reduced-motion: reduce) {
+      .sine-track, .orbit-circle {
+        transform: none !important;
+      }
     }
 
     /*  ░░░  HERO  ░░░  */
