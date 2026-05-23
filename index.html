@@ -43,14 +43,112 @@
       inset: 0;
       /*  *Feel free to swap this data-URI for your own noise texture*  */
       background-image: url('data:image/svg+xml;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4/5+hHgAHggJ/qTJSwwAAAABJRU5ErkJggg==');
-      opacity: .15;
+      opacity: .12;
       pointer-events: none;
+      z-index: 3;
+    }
+
+
+    .math-scroll-art {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      overflow: hidden;
     }
 
     .container {
+      position: relative;
+      z-index: 4;
       max-width: 1200px;
       margin: 0 auto;
       padding: 2rem;
+    }
+
+    .sine-track {
+      position: absolute;
+      width: clamp(140px, 18vw, 260px);
+      height: 200vh;
+      top: -50vh;
+      opacity: .95;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 900'%3E%3Cpath d='M110 0 C40 45 180 90 110 135 C40 180 180 225 110 270 C40 315 180 360 110 405 C40 450 180 495 110 540 C40 585 180 630 110 675 C40 720 180 765 110 810 C40 855 180 900 110 900' stroke='%23C70039' stroke-width='4' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='110' cy='135' r='5' fill='%23C70039' opacity='0.65'/%3E%3Ccircle cx='110' cy='405' r='5' fill='%23C70039' opacity='0.65'/%3E%3Ccircle cx='110' cy='675' r='5' fill='%23C70039' opacity='0.65'/%3E%3C/svg%3E");
+      background-repeat: repeat-y;
+      background-size: 100% 300px;
+      filter: drop-shadow(0 0 8px rgba(199, 0, 57, .45));
+      will-change: transform;
+    }
+
+    .sine-left { left: -34px; }
+
+    .sine-right {
+      right: -34px;
+      transform: scaleX(-1);
+      opacity: .75;
+    }
+
+    .orbit-circle {
+      position: absolute;
+      border-radius: 50%;
+      border: 3px solid rgba(199, 0, 57, .75);
+      box-shadow: 0 0 0 6px rgba(199, 0, 57, .08), 0 0 18px rgba(199, 0, 57, .28);
+      opacity: .9;
+      will-change: transform;
+    }
+
+    .orbit-one {
+      width: clamp(140px, 14vw, 220px);
+      height: clamp(140px, 14vw, 220px);
+      left: 4vw;
+      top: 12vh;
+    }
+
+    .orbit-two {
+      width: clamp(100px, 11vw, 170px);
+      height: clamp(100px, 11vw, 170px);
+      right: 5vw;
+      top: 60vh;
+      border-color: rgba(255, 230, 230, .95);
+    }
+
+
+
+
+    .orbit-three {
+      width: clamp(80px, 8vw, 130px);
+      height: clamp(80px, 8vw, 130px);
+      left: 7vw;
+      top: 40vh;
+      border-color: rgba(255, 240, 240, .8);
+    }
+
+    .orbit-four {
+      width: clamp(110px, 10vw, 160px);
+      height: clamp(110px, 10vw, 160px);
+      right: 8vw;
+      top: 22vh;
+      border-color: rgba(255, 220, 220, .9);
+    }
+
+    .orbit-five {
+      width: clamp(70px, 7vw, 120px);
+      height: clamp(70px, 7vw, 120px);
+      left: 6vw;
+      top: 72vh;
+      border-color: rgba(255, 210, 230, .85);
+    }
+
+    .orbit-six {
+      width: clamp(90px, 9vw, 150px);
+      height: clamp(90px, 9vw, 150px);
+      right: 6vw;
+      top: 78vh;
+      border-color: rgba(255, 235, 245, .82);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sine-track, .orbit-circle {
+        transform: none !important;
+      }
     }
 
     /*  ░░░  HERO  ░░░  */
@@ -211,6 +309,16 @@
   </style>
 </head>
 <body>
+  <div class="math-scroll-art" aria-hidden="true">
+    <div class="sine-track sine-left"></div>
+    <div class="sine-track sine-right"></div>
+    <div class="orbit-circle orbit-one"></div>
+    <div class="orbit-circle orbit-two"></div>
+    <div class="orbit-circle orbit-three"></div>
+    <div class="orbit-circle orbit-four"></div>
+    <div class="orbit-circle orbit-five"></div>
+    <div class="orbit-circle orbit-six"></div>
+  </div>
   <div id="cursor-circle"></div>
   <div class="container">
 
@@ -344,6 +452,50 @@
   };
 
   applyStyle(subtitleStyles[idx]);
+
+  const artLayer = {
+    leftSine: document.querySelector('.sine-left'),
+    rightSine: document.querySelector('.sine-right'),
+    orbitOne: document.querySelector('.orbit-one'),
+    orbitTwo: document.querySelector('.orbit-two'),
+    orbitThree: document.querySelector('.orbit-three'),
+    orbitFour: document.querySelector('.orbit-four'),
+    orbitFive: document.querySelector('.orbit-five'),
+    orbitSix: document.querySelector('.orbit-six')
+  };
+
+  let scheduled = false;
+
+  const animateMathDecor = () => {
+    const y = window.scrollY;
+    const waveA = Math.sin(y * 0.012) * 36;
+    const waveB = Math.cos(y * 0.01) * 38;
+
+    artLayer.leftSine.style.transform = `translate3d(${waveA}px, ${-y * 0.3}px, 0)`;
+    artLayer.rightSine.style.transform = `translate3d(${waveB}px, ${-y * 0.34}px, 0) scaleX(-1)`;
+
+    const scaleOne = 1 + (Math.sin(y * 0.012) + 1) * 0.28;
+    const scaleTwo = 1 + (Math.cos(y * 0.011) + 1) * 0.3;
+
+    artLayer.orbitOne.style.transform = `translate3d(${Math.sin(y * 0.009) * 30}px, ${y * 0.12}px, 0) scale(${scaleOne})`;
+    artLayer.orbitTwo.style.transform = `translate3d(${Math.cos(y * 0.007) * -26}px, ${-y * 0.1}px, 0) scale(${scaleTwo})`;
+    artLayer.orbitThree.style.transform = `translate3d(${Math.sin(y * 0.006) * 18}px, ${y * 0.08}px, 0) scale(${1 + (Math.sin(y * 0.01) + 1) * 0.16})`;
+    artLayer.orbitFour.style.transform = `translate3d(${Math.cos(y * 0.005) * -20}px, ${-y * 0.06}px, 0) scale(${1 + (Math.cos(y * 0.009) + 1) * 0.14})`;
+    artLayer.orbitFive.style.transform = `translate3d(${Math.sin(y * 0.008) * 14}px, ${y * 0.05}px, 0) scale(${1 + (Math.sin(y * 0.013) + 1) * 0.12})`;
+    artLayer.orbitSix.style.transform = `translate3d(${Math.cos(y * 0.006) * -16}px, ${-y * 0.04}px, 0) scale(${1 + (Math.cos(y * 0.012) + 1) * 0.1})`;
+
+    scheduled = false;
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!scheduled) {
+      requestAnimationFrame(animateMathDecor);
+      scheduled = true;
+    }
+  }, { passive: true });
+
+  animateMathDecor();
+
 
     setInterval(() => {
     idx = (idx + 1) % subtitleStyles.length;
